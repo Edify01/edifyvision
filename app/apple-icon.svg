@@ -1,26 +1,26 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="180" height="180" rx="40" fill="#EFF8FF"/>
   <defs>
-    <linearGradient id="atop" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4893FF"/>
-      <stop offset="100%" stop-color="#0179FE"/>
+    <clipPath id="ac"><circle cx="90" cy="90" r="72"/></clipPath>
+    <radialGradient id="abg" cx="62" cy="52" r="105" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1045b0"/>
+      <stop offset="55%" stop-color="#0a2880"/>
+      <stop offset="100%" stop-color="#020e52"/>
+    </radialGradient>
+    <linearGradient id="aw1" x1="0" y1="180" x2="180" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1045b0"/>
+      <stop offset="100%" stop-color="#1558c4"/>
     </linearGradient>
-    <linearGradient id="aleft" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#175CD3"/>
-      <stop offset="100%" stop-color="#0F3F99"/>
-    </linearGradient>
-    <linearGradient id="aright" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2E90FA"/>
-      <stop offset="100%" stop-color="#1570EF"/>
+    <linearGradient id="aw2" x1="0" y1="180" x2="180" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1660cc"/>
+      <stop offset="100%" stop-color="#1f78de"/>
     </linearGradient>
   </defs>
-  <!-- Top face -->
-  <polygon points="90,28 152,62 90,96 28,62" fill="url(#atop)"/>
-  <!-- Left face -->
-  <polygon points="28,62 90,96 90,152 28,118" fill="url(#aleft)"/>
-  <!-- Right face -->
-  <polygon points="90,96 152,62 152,118 90,152" fill="url(#aright)"/>
-  <!-- Edge highlights -->
-  <polyline points="28,62 90,28 152,62 90,96 28,62" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2" stroke-linejoin="round"/>
-  <line x1="90" y1="96" x2="90" y2="152" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+  <circle cx="90" cy="90" r="72" fill="url(#abg)"/>
+  <g clip-path="url(#ac)">
+    <path d="M 18,112 C 42,68 72,130 100,90 C 128,52 152,100 172,68 L 172,190 L 18,190 Z" fill="url(#aw1)"/>
+    <path d="M 18,56 C 42,14 72,76 100,36 C 128,-2 152,46 172,14 L 172,68 C 152,100 128,52 100,90 C 72,130 42,68 18,112 Z" fill="url(#aw2)"/>
+    <ellipse cx="60" cy="48" rx="38" ry="16" fill="rgba(255,255,255,0.13)" transform="rotate(-28 60 48)"/>
+  </g>
+  <circle cx="90" cy="90" r="71" fill="none" stroke="rgba(0,8,50,0.35)" stroke-width="3"/>
 </svg>

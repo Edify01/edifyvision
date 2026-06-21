@@ -1,83 +1,149 @@
 /**
- * EdifyLogo — a crisp isometric cube built from three gradient faces.
- * The mark is purely geometric: modern, techy, instantly recognisable.
- * variant="light"  → wordmark in dark ink  (navbar on white/light bg)
- * variant="dark"   → wordmark in white ink (navbar on dark/hero bg, footer)
- * variant="mark"   → icon only (favicons, tight spaces)
+ * EdifyLogo — fluid sphere mark with layered S-curve waves.
+ * Inspired by smooth spherical iconography — dark-navy base with
+ * two organic wave fills creating depth and visual flow.
+ *
+ * variant="light" → wordmark in dark ink  (navbar on white/light bg)
+ * variant="dark"  → wordmark in white ink (navbar on dark bg, footer)
+ * variant="mark"  → icon only
  */
 interface EdifyLogoProps {
   variant?: "light" | "dark" | "mark";
-  /** Overall width in px — height scales proportionally */
   width?: number;
 }
 
 export default function EdifyLogo({ variant = "light", width = 140 }: EdifyLogoProps) {
-  const markSize = Math.round(width * 0.245);        // cube icon size
-  const wordColor = variant === "dark" ? "#ffffff" : "#101828";
-  const mutedColor = variant === "dark" ? "rgba(255,255,255,0.55)" : "#667085";
-  const fontSize = Math.round(markSize * 0.62);
-  const subSize  = Math.round(markSize * 0.36);
+  const markSize = Math.round(width * 0.252);
+  const wordColor  = variant === "dark" ? "#ffffff" : "#101828";
+  const mutedColor = variant === "dark" ? "rgba(255,255,255,0.52)" : "#667085";
+  const fontSize   = Math.round(markSize * 0.62);
+  const subSize    = Math.round(markSize * 0.355);
 
-  /* The cube: isometric three faces rendered in SVG */
-  const s = markSize;
-  // face points
-  const cx = s / 2;                // horizontal center
-  const top = s * 0.08;
-  const mid = s * 0.44;
-  const bot = s * 0.92;
-  const lx  = s * 0.09;
-  const rx  = s * 0.91;
-  const lm  = s * 0.09;
-  const rm  = s * 0.91;
-
-  const topFace   = `${cx},${top} ${rx},${mid} ${cx},${mid + (mid - top)} ${lx},${mid}`;
-  const leftFace  = `${lx},${mid} ${cx},${mid + (mid - top)} ${cx},${bot} ${lm},${bot}`;
-  const rightFace = `${cx},${mid + (mid - top)} ${rx},${mid} ${rm},${bot} ${cx},${bot}`;
+  // Per-instance gradient IDs so multiple logo renders on one page never clash
+  const u = `el-${variant}`;
 
   return (
-    <div style={{ display: "inline-flex", alignItems: "center", gap: Math.round(markSize * 0.38) }}>
-      {/* ── Cube mark ────────────────────────────────────────────── */}
+    <div style={{ display: "inline-flex", alignItems: "center", gap: Math.round(markSize * 0.36) }}>
+
+      {/* ── Sphere mark ─────────────────────────────────────────── */}
       <svg
-        width={s} height={s}
-        viewBox={`0 0 ${s} ${s}`}
+        width={markSize}
+        height={markSize}
+        viewBox="0 0 36 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         style={{ flexShrink: 0 }}
       >
         <defs>
-          <linearGradient id="ec-top" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#4893FF" />
-            <stop offset="100%" stopColor="#0179FE" />
+          {/* Hard circle clip — keeps all fills perfectly round */}
+          <clipPath id={`${u}-c`}>
+            <circle cx="18" cy="18" r="17.6" />
+          </clipPath>
+
+          {/*
+           * Base: deep navy radial, lit subtly from upper-left.
+           * Centre ~#0f3ea8, edges fade to very dark #020e52.
+           */}
+          <radialGradient
+            id={`${u}-bg`}
+            cx="13" cy="11" r="22"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%"   stopColor="#1045b0" />
+            <stop offset="55%"  stopColor="#0a2880" />
+            <stop offset="100%" stopColor="#020e52" />
+          </radialGradient>
+
+          {/*
+           * Wave 1: the large lower-body fill.
+           * Slightly lighter than the base so it reads as a distinct wave.
+           */}
+          <linearGradient
+            id={`${u}-w1`}
+            x1="0" y1="36" x2="36" y2="0"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%"   stopColor="#1045b0" />
+            <stop offset="100%" stopColor="#1558c4" />
           </linearGradient>
-          <linearGradient id="ec-left" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#175CD3" />
-            <stop offset="100%" stopColor="#0F3F99" />
+
+          {/*
+           * Wave 2: the S-curve highlight band.
+           * Still clearly a dark blue — just enough lift to pop.
+           */}
+          <linearGradient
+            id={`${u}-w2`}
+            x1="0" y1="36" x2="36" y2="0"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%"   stopColor="#1660cc" />
+            <stop offset="100%" stopColor="#1f78de" />
           </linearGradient>
-          <linearGradient id="ec-right" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2E90FA" />
-            <stop offset="100%" stopColor="#1570EF" />
-          </linearGradient>
-          {/* subtle inner edge highlight */}
-          <filter id="ec-soft">
-            <feDropShadow dx="0" dy="1" stdDeviation="1.5" floodColor="#0179FE" floodOpacity="0.25" />
+
+          {/* Drop-shadow filter for subtle depth at the sphere edge */}
+          <filter id={`${u}-sh`} x="-8%" y="-8%" width="116%" height="116%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="1.8"
+              floodColor="#000830" floodOpacity="0.45" />
           </filter>
         </defs>
 
-        {/* Top face */}
-        <polygon points={topFace}   fill="url(#ec-top)"   filter="url(#ec-soft)" />
-        {/* Left face */}
-        <polygon points={leftFace}  fill="url(#ec-left)" />
-        {/* Right face */}
-        <polygon points={rightFace} fill="url(#ec-right)" />
-
-        {/* Edge lines for crispness */}
-        <polyline
-          points={`${lx},${mid} ${cx},${top} ${rx},${mid} ${cx},${mid + (mid - top)} ${lx},${mid}`}
-          fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" strokeLinejoin="round"
+        {/* ── Base sphere ── */}
+        <circle
+          cx="18" cy="18" r="17.6"
+          fill={`url(#${u}-bg)`}
+          filter={`url(#${u}-sh)`}
         />
-        <line x1={cx} y1={mid + (mid - top)} x2={cx} y2={bot}
-          stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" />
+
+        {/* ── Wave fills, clipped to circle ── */}
+        <g clipPath={`url(#${u}-c)`}>
+
+          {/*
+           * Wave 1 — large organic sweep from bottom-left to upper-right.
+           * Fills the bottom ~60 % of the sphere.
+           *   Left entrance y≈22, curves up to centre y≈17, exits right y≈13.
+           */}
+          <path
+            d="M -2,22 C 6,14 13,26 20,18 C 27,11 32,20 38,13 L 38,38 L -2,38 Z"
+            fill={`url(#${u}-w1)`}
+          />
+
+          {/*
+           * Wave 2 — the S-curve highlight band sitting above Wave 1.
+           * Left entrance y≈12, sweeps up, exits right y≈5.
+           * Bottom edge matches Wave 1's top edge for a seamless seam.
+           */}
+          <path
+            d="M -2,12 C 6,4 13,16 20,8 C 27,0 32,9 38,4 L 38,13 C 32,20 27,11 20,18 C 13,26 6,14 -2,22 Z"
+            fill={`url(#${u}-w2)`}
+          />
+
+          {/*
+           * Specular gleam — small rotated ellipse at upper-left.
+           * Gives the sphere its glassy, dimensional quality.
+           */}
+          <ellipse
+            cx="11.5" cy="9"
+            rx="7.5" ry="3.2"
+            fill="rgba(255,255,255,0.13)"
+            transform="rotate(-28 11.5 9)"
+          />
+        </g>
+
+        {/* ── Outer rim — adds depth / edge definition ── */}
+        <circle
+          cx="18" cy="18" r="17.3"
+          fill="none"
+          stroke="rgba(0,8,50,0.4)"
+          strokeWidth="0.9"
+        />
+        {/* Inner highlight ring */}
+        <circle
+          cx="18" cy="18" r="16.7"
+          fill="none"
+          stroke="rgba(255,255,255,0.08)"
+          strokeWidth="0.45"
+        />
       </svg>
 
       {/* ── Wordmark ─────────────────────────────────────────────── */}
@@ -99,7 +165,7 @@ export default function EdifyLogo({ variant = "light", width = 140 }: EdifyLogoP
             fontSize: subSize,
             color: mutedColor,
             letterSpacing: "0.18em",
-            textTransform: "uppercase",
+            textTransform: "uppercase" as const,
             lineHeight: 1.3,
             marginTop: 2,
           }}>
