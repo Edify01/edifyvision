@@ -1,7 +1,10 @@
 "use client";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import ContactModal from "../components/ContactModal";
 import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 import { ArrowRight, ArrowUpRight, CheckCircle, Lightbulb, Eye, Compass, Shield } from "lucide-react";
 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
@@ -18,6 +21,8 @@ const values = [
 ];
 
 export default function AboutPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div style={{ background: "#f8fafc", minHeight: "100vh" }}>
       <Navbar />
@@ -59,29 +64,36 @@ export default function AboutPage() {
               Edify Consulting was founded with one conviction: the gap between where organisations are and where they could be is almost always a strategic one.
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="about-hero-cards">
-            {[
-              { label: "Founded", value: "2020" },
-              { label: "Engagements", value: "150+" },
-              { label: "Avg. Engagement", value: "6 mo." },
-              { label: "Client Retention", value: "94%" },
-            ].map((s) => (
-              <div key={s.label} style={{
-                background: "rgba(255,255,255,0.06)",
-                backdropFilter: "blur(12px)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: 16, padding: "24px 20px",
-              }}>
-                <p style={{
-                  fontFamily: "var(--font-ibm-plex-serif)",
-                  fontSize: 30, fontWeight: 600,
-                  background: "linear-gradient(90deg,#60a5fa,#93c5fd)",
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                  marginBottom: 4,
-                }}>{s.value}</p>
-                <p style={{ fontSize: 12, color: "rgba(243,244,246,0.5)", fontWeight: 500 }}>{s.label}</p>
+          {/* Right — headshot instead of stat cards */}
+          <div style={{ position: "relative" }}>
+            <div style={{
+              borderRadius: 28, overflow: "hidden",
+              boxShadow: "0px 24px 60px -12px rgba(59,130,246,0.35), 0px 4px 16px rgba(0,0,0,0.3)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              background: "rgba(255,255,255,0.05)",
+              backdropFilter: "blur(4px)",
+              position: "relative", maxWidth: 400, margin: "0 auto",
+            }}>
+              {/* Gradient accent bar */}
+              <div style={{ height: 4, background: "linear-gradient(90deg,#60a5fa 0%,#3b82f6 50%,#2563eb 100%)" }} />
+              {/* Headshot */}
+              <div style={{ width: "100%", aspectRatio: "4/5", position: "relative", background: "linear-gradient(160deg,#1e1b4b 0%,#0f172a 100%)" }}>
+                <Image
+                  src="/headshot-placeholder.svg"
+                  alt="Founder headshot"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center top" }}
+                  priority
+                />
               </div>
-            ))}
+              {/* Name strip */}
+              <div style={{ padding: "20px 24px 22px", background: "rgba(15,12,41,0.9)", backdropFilter: "blur(8px)" }}>
+                <p style={{ fontFamily: "var(--font-ibm-plex-serif)", fontSize: 18, fontWeight: 600, color: "#fff", marginBottom: 2 }}>
+                  Your Name
+                </p>
+                <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", fontWeight: 500 }}>Founder &amp; Principal Advisor</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -105,7 +117,7 @@ export default function AboutPage() {
                 The word itself is a promise
               </h2>
               <p style={{ fontSize: 16, color: "#475467", lineHeight: 1.85 }}>
-                When we chose <em>Edify</em> as our name, we were making a commitment: every engagement would leave an organisation genuinely better — not just differently busy. Too many consulting relationships produce volumes of work that gather dust. We are built differently.
+                When we chose <em>Edify</em> as our name, we were making a commitment: every engagement would leave an organisation genuinely better — not just differently busy. Too many consulting relationships produce volumes of work that gather dust.
               </p>
             </div>
             <div style={{ width: "100%", height: 1, background: "#EAECF0" }} />
@@ -114,10 +126,10 @@ export default function AboutPage() {
                 Who we serve
               </h2>
               <p style={{ fontSize: 16, color: "#475467", lineHeight: 1.85, marginBottom: 20 }}>
-                We work with founders, executives, and leadership teams at inflection points — preparing to scale, navigating a pivot, entering a new market, or realigning an organisation that has drifted from its purpose.
+                We partner with small to medium-sized businesses ready to capitalize on the AI revolution. If you're a forward-thinking founder or leadership team looking to modernize operations, automate intelligently, and build competitive advantages through technology — this is your moment.
               </p>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
-                {["Series A–C scaling companies", "Professional services firms", "Leadership teams in transition"].map(i => (
+                {["Growing SMBs ready to scale with AI", "Forward-thinking founders embracing automation", "Teams seeking operational transformation"].map(i => (
                   <li key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}>
                     <CheckCircle size={15} style={{ color: "#039855", flexShrink: 0 }} />
                     <span style={{ fontSize: 15, color: "#344054" }}>{i}</span>
@@ -126,14 +138,16 @@ export default function AboutPage() {
               </ul>
             </div>
             <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-              <a href="mailto:info@edifyvision.com" style={{
+              <button onClick={() => setIsModalOpen(true)} style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 background: "#1570EF", color: "#fff",
                 padding: "14px 28px", borderRadius: 12,
                 fontWeight: 600, fontSize: 15, textDecoration: "none",
+                border: "none",
+                cursor: "pointer",
               }}>
                 Work With Us <ArrowRight size={15} />
-              </a>
+              </button>
               <Link href="/#services" style={{
                 display: "inline-flex", alignItems: "center",
                 background: "#fff", color: "#344054",
@@ -210,6 +224,9 @@ export default function AboutPage() {
       </section>
 
       <Footer />
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       <style>{`
         @media (max-width: 768px) {

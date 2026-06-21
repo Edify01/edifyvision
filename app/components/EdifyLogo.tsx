@@ -1,16 +1,10 @@
 /**
- * EdifyLogo — three-band fluid sphere mark.
+ * EdifyLogo — fluid sphere mark with layered S-curve waves.
+ * Inspired by smooth spherical iconography — dark-navy base with
+ * two organic wave fills creating depth and visual flow.
  *
- * The 36×36 viewBox is divided into exactly three equal 12-unit tiers:
- *   Top    y  0–12  → lightest dark blue   (#1c68d4 → #1458c0)
- *   Middle y 12–24  → royal blue           (#1040a8 → #0d3598)
- *   Bottom y 24–36  → deep midnight navy   (#0a2070 → #040c3e)
- *
- * Two centred S-curve wave boundaries (amplitude ±5 px) separate the tiers.
- * No specular highlight. Each tier has its own scoped linear gradient.
- *
- * variant="light" → wordmark in dark ink  (navbar on light bg)
- * variant="dark"  → wordmark in white ink (footer / dark bg)
+ * variant="light" → wordmark in dark ink  (navbar on white/light bg)
+ * variant="dark"  → wordmark in white ink (navbar on dark bg, footer)
  * variant="mark"  → icon only
  */
 interface EdifyLogoProps {
@@ -19,14 +13,13 @@ interface EdifyLogoProps {
 }
 
 export default function EdifyLogo({ variant = "light", width = 140 }: EdifyLogoProps) {
-  const markSize   = Math.round(width * 0.252);
+  const markSize = Math.round(width * 0.252);
   const wordColor  = variant === "dark" ? "#ffffff" : "#101828";
   const mutedColor = variant === "dark" ? "rgba(255,255,255,0.52)" : "#667085";
   const fontSize   = Math.round(markSize * 0.62);
   const subSize    = Math.round(markSize * 0.355);
 
-  // Unique prefix — prevents gradient ID collisions when rendered
-  // multiple times on the same page (navbar + footer, etc.)
+  // Per-instance gradient IDs so multiple logo renders on one page never clash
   const u = `el-${variant}`;
 
   return (
@@ -43,94 +36,114 @@ export default function EdifyLogo({ variant = "light", width = 140 }: EdifyLogoP
         style={{ flexShrink: 0 }}
       >
         <defs>
-          {/* Clip to perfect circle */}
-          <clipPath id={`${u}-clip`}>
-            <circle cx="18" cy="18" r="17.5" />
+          {/* Hard circle clip — keeps all fills perfectly round */}
+          <clipPath id={`${u}-c`}>
+            <circle cx="18" cy="18" r="17.6" />
           </clipPath>
 
-          {/* ── BOTTOM tier gradient (y 24–36) ──────────────────
-              Rich depth gradient: deep navy to royal blue            */}
-          <linearGradient
-            id={`${u}-bot`}
-            x1="0" y1="36" x2="36" y2="24"
+          {/*
+           * Base: deep navy radial, lit subtly from upper-left.
+           * Centre ~#0f3ea8, edges fade to very dark #020e52.
+           */}
+          <radialGradient
+            id={`${u}-bg`}
+            cx="13" cy="11" r="22"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%"   stopColor="#0a1e4a" />
-            <stop offset="50%"  stopColor="#0d2a66" />
-            <stop offset="100%" stopColor="#10357d" />
-          </linearGradient>
+            <stop offset="0%"   stopColor="#1045b0" />
+            <stop offset="55%"  stopColor="#0a2880" />
+            <stop offset="100%" stopColor="#020e52" />
+          </radialGradient>
 
-          {/* ── MIDDLE tier gradient (y 12–24) ──────────────────
-              Smooth transition: royal to bright blue                 */}
+          {/*
+           * Wave 1: the large lower-body fill.
+           * Slightly lighter than the base so it reads as a distinct wave.
+           */}
           <linearGradient
-            id={`${u}-mid`}
-            x1="0" y1="24" x2="36" y2="12"
+            id={`${u}-w1`}
+            x1="0" y1="36" x2="36" y2="0"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%"   stopColor="#10357d" />
-            <stop offset="50%"  stopColor="#1448a8" />
-            <stop offset="100%" stopColor="#1a5bc4" />
+            <stop offset="0%"   stopColor="#1045b0" />
+            <stop offset="100%" stopColor="#1558c4" />
           </linearGradient>
 
-          {/* ── TOP tier gradient (y 0–12) ───────────────────────
-              Luminous highlight: bright to vibrant blue              */}
+          {/*
+           * Wave 2: the S-curve highlight band.
+           * Still clearly a dark blue — just enough lift to pop.
+           */}
           <linearGradient
-            id={`${u}-top`}
-            x1="0" y1="12" x2="36" y2="0"
+            id={`${u}-w2`}
+            x1="0" y1="36" x2="36" y2="0"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%"   stopColor="#1a5bc4" />
-            <stop offset="50%"  stopColor="#1e6ed8" />
-            <stop offset="100%" stopColor="#2882ed" />
+            <stop offset="0%"   stopColor="#1660cc" />
+            <stop offset="100%" stopColor="#1f78de" />
           </linearGradient>
 
-          {/* Subtle drop-shadow for edge depth */}
-          <filter id={`${u}-sh`} x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow
-              dx="0" dy="1.5" stdDeviation="2"
-              floodColor="#000820" floodOpacity="0.55"
-            />
+          {/* Drop-shadow filter for subtle depth at the sphere edge */}
+          <filter id={`${u}-sh`} x="-8%" y="-8%" width="116%" height="116%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="1.8"
+              floodColor="#000830" floodOpacity="0.45" />
           </filter>
         </defs>
 
-        {/* ── Layer 1: full sphere = bottom tier base colour ── */}
+        {/* ── Base sphere ── */}
         <circle
-          cx="18" cy="18" r="17.5"
-          fill={`url(#${u}-bot)`}
+          cx="18" cy="18" r="17.6"
+          fill={`url(#${u}-bg)`}
           filter={`url(#${u}-sh)`}
         />
 
-        {/* ── Layers 2 & 3: wave fills, clipped to circle ── */}
-        <g clipPath={`url(#${u}-clip)`}>
+        {/* ── Wave fills, clipped to circle ── */}
+        <g clipPath={`url(#${u}-c)`}>
 
           {/*
-           * MIDDLE tier fill.
-           * Covers everything above the bottom wave boundary (y-centre = 24).
-           * Smooth wave centered perfectly with controlled amplitude.
-           * Creates clean separation between bottom and middle tiers.
+           * Wave 1 — large organic sweep from bottom-left to upper-right.
+           * Fills the bottom ~60 % of the sphere.
+           *   Left entrance y≈22, curves up to centre y≈17, exits right y≈13.
            */}
           <path
-            d="M -2,24 C 6,21 12,27 18,24 C 24,21 30,27 38,24 L 38,-2 L -2,-2 Z"
-            fill={`url(#${u}-mid)`}
+            d="M -2,22 C 6,14 13,26 20,18 C 27,11 32,20 38,13 L 38,38 L -2,38 Z"
+            fill={`url(#${u}-w1)`}
           />
 
           {/*
-           * TOP tier fill.
-           * Covers everything above the top wave boundary (y-centre = 12).
-           * Identical wave geometry for visual consistency.
-           * Creates clean separation between middle and top tiers.
+           * Wave 2 — the S-curve highlight band sitting above Wave 1.
+           * Left entrance y≈12, sweeps up, exits right y≈5.
+           * Bottom edge matches Wave 1's top edge for a seamless seam.
            */}
           <path
-            d="M -2,12 C 6,9 12,15 18,12 C 24,9 30,15 38,12 L 38,-2 L -2,-2 Z"
-            fill={`url(#${u}-top)`}
+            d="M -2,12 C 6,4 13,16 20,8 C 27,0 32,9 38,4 L 38,13 C 32,20 27,11 20,18 C 13,26 6,14 -2,22 Z"
+            fill={`url(#${u}-w2)`}
+          />
+
+          {/*
+           * Specular gleam — small rotated ellipse at upper-left.
+           * Gives the sphere its glassy, dimensional quality.
+           */}
+          <ellipse
+            cx="11.5" cy="9"
+            rx="7.5" ry="3.2"
+            fill="rgba(255,255,255,0.13)"
+            transform="rotate(-28 11.5 9)"
           />
         </g>
 
-        {/* ── Rim rings for polish ── */}
-        <circle cx="18" cy="18" r="17.2"
-          fill="none" stroke="rgba(0,5,40,0.5)" strokeWidth="0.85" />
-        <circle cx="18" cy="18" r="16.6"
-          fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="0.4" />
+        {/* ── Outer rim — adds depth / edge definition ── */}
+        <circle
+          cx="18" cy="18" r="17.3"
+          fill="none"
+          stroke="rgba(0,8,50,0.4)"
+          strokeWidth="0.9"
+        />
+        {/* Inner highlight ring */}
+        <circle
+          cx="18" cy="18" r="16.7"
+          fill="none"
+          stroke="rgba(255,255,255,0.08)"
+          strokeWidth="0.45"
+        />
       </svg>
 
       {/* ── Wordmark ─────────────────────────────────────────────── */}

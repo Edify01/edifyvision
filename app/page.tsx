@@ -1,8 +1,10 @@
 "use client";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ContactModal from "./components/ContactModal";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { ArrowRight, ArrowUpRight, CheckCircle, Cpu, Network, Layers, BarChart3, Star } from "lucide-react";
 
 /* ── tiny reusable primitives ─────────────────────────────────────────── */
@@ -54,22 +56,23 @@ const whyEdify = [
   "AI solutions built for your specific systems — not off-the-shelf",
   "End-to-end ownership from architecture through deployment",
   "Measurable outcomes tied to real business metrics",
-  "Senior-led from day one — no juniors left to deliver",
 ];
 
-const testimonials = [
+const caseStudies = [
   {
-    quote: "Edify mapped our entire ops stack, identified the bottlenecks we'd been ignoring for two years, and had automations running within six weeks. The ROI was immediate.",
-    name: "Chief Operations Officer", role: "Series B Tech Company",
+    quote: "Working with Edify transformed how we think about automation. The AI solutions they built are now core to our competitive advantage.",
+    name: "Tech Startup Founder", role: "SaaS Platform",
   },
   {
-    quote: "The AI integration work completely changed how our team operates. What used to take days now happens in minutes — and the system just keeps learning.",
-    name: "Founder & CEO", role: "Professional Services Firm",
+    quote: "The systems integration work eliminated weeks of manual processing. We're operating at twice the speed with half the operational overhead.",
+    name: "Operations Director", role: "Professional Services",
   },
 ];
 
 /* ── page ─────────────────────────────────────────────────────────────── */
 export default function HomePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div style={{ background: "#f8fafc", minHeight: "100vh" }}>
       <Navbar />
@@ -79,30 +82,36 @@ export default function HomePage() {
         paddingTop: 140, paddingBottom: 100,
         paddingLeft: 24, paddingRight: 24,
         position: "relative", overflow: "hidden",
-        background: "#1a2860",
+        background: "#e8eef9",
       }}>
-        {/* ── Animated gradient — blue-indigo, light palette ── */}
+        {/* ── Animated gradient — lighter, more vibrant colors ── */}
         <div style={{
           position: "absolute", inset: 0, zIndex: 0,
-          background: "linear-gradient(135deg, #1a2860 0%, #1e3a8a 20%, #2d3581 45%, #1e3a8a 65%, #1a2860 100%)",
-          backgroundSize: "300% 300%",
-          animation: "gradientFlow 12s ease infinite",
+          background: "linear-gradient(135deg, #e0e7ff 0%, #dbeafe 15%, #e0e7ff 30%, #ddd6fe 45%, #e0e7ff 60%, #dbeafe 75%, #e0e7ff 100%)",
+          backgroundSize: "400% 400%",
+          animation: "gradientFlow 8s ease infinite",
         }} />
 
-        {/* Soft radial depth — blue tones only */}
+        {/* Soft radial highlights — brighter, more visible */}
         <div style={{
           position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-          background: "radial-gradient(ellipse 65% 55% at 62% 48%, rgba(59,130,246,0.18) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 70% 60% at 55% 45%, rgba(147,197,253,0.35) 0%, transparent 65%)",
         }} />
         <div style={{
           position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-          background: "radial-gradient(ellipse 45% 40% at 18% 72%, rgba(99,102,241,0.12) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse 50% 45% at 20% 70%, rgba(167,139,250,0.25) 0%, transparent 60%)",
         }} />
 
         {/* ── Topographic SVG — static, dense, full-canvas ── */}
+        {/* TO REPLACE: Upload your own topographic SVG file to /public/topographic-bg.svg
+            Then replace this entire <div> with: 
+            <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
+              <Image src="/topographic-bg.svg" alt="" fill style={{ objectFit: "cover", opacity: 0.3 }} />
+            </div>
+        */}
         <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
           <svg width="100%" height="100%" viewBox="0 0 1440 640" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" stroke="rgba(255,255,255,0.20)" strokeWidth="1.05" strokeLinejoin="round" strokeLinecap="round">
+            <g fill="none" stroke="rgba(99,102,241,0.18)" strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round">
 
               {/* ═══ MAIN CENTER-RIGHT CLUSTER (cx≈920, cy≈315) — 7 rings ═══ */}
               <path d="M920,285 Q948,280 954,308 Q960,338 936,348 Q910,357 896,334 Q883,311 897,290 Q906,277 920,285Z"/>
@@ -211,22 +220,22 @@ export default function HomePage() {
                 fontFamily: "var(--font-ibm-plex-serif)",
                 fontSize: "clamp(2.6rem, 4vw, 3.75rem)",
                 fontWeight: 600, lineHeight: 1.12,
-                color: "#ffffff",
+                color: "#0f172a",
                 letterSpacing: "-0.02em",
                 marginBottom: 24,
               }}>
                 Build smarter systems.{" "}
                 <span style={{
                   fontStyle: "italic",
-                  background: "linear-gradient(90deg, #a78bfa 0%, #818cf8 50%, #60a5fa 100%)",
+                  background: "linear-gradient(90deg, #6366f1 0%, #3b82f6 50%, #2563eb 100%)",
                   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
                 }}>Operate at a higher level.</span>
               </h1>
-              <p style={{ fontSize: 18, color: "rgba(255,255,255,0.72)", lineHeight: 1.75, marginBottom: 36, maxWidth: 480 }}>
+              <p style={{ fontSize: 18, color: "#475467", lineHeight: 1.75, marginBottom: 36, maxWidth: 480 }}>
                 Edify helps ambitious organisations integrate AI, modernise their systems, and unlock the operational potential that most businesses leave on the table.
               </p>
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
-                <a href="mailto:info@edifyvision.com" style={{
+                <button onClick={() => setIsModalOpen(true)} style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   background: "linear-gradient(90deg,#6366f1,#3b82f6)",
                   color: "#fff",
@@ -234,19 +243,21 @@ export default function HomePage() {
                   fontWeight: 600, fontSize: 15, textDecoration: "none",
                   transition: "opacity 0.3s, box-shadow 0.3s",
                   boxShadow: "0 4px 20px rgba(99,102,241,0.4)",
+                  border: "none",
+                  cursor: "pointer",
                 }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = "0.88"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
                 >
                   Book a Free Consultation
                   <ArrowRight size={16} />
-                </a>
+                </button>
                 <Link href="/about" style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
-                  background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.88)",
+                  background: "rgba(15,23,42,0.08)", color: "#1e293b",
                   padding: "14px 28px", borderRadius: 12,
                   fontWeight: 600, fontSize: 15, textDecoration: "none",
-                  border: "1px solid rgba(255,255,255,0.15)",
+                  border: "1px solid rgba(15,23,42,0.12)",
                   backdropFilter: "blur(8px)",
                 }}>
                   Our Story
@@ -255,8 +266,8 @@ export default function HomePage() {
               <div style={{ display: "flex", gap: 24, marginTop: 40, flexWrap: "wrap" }}>
                 {["Custom AI — not off-the-shelf", "End-to-end implementation", "Measurable outcomes only"].map(t => (
                   <div key={t} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <CheckCircle size={15} style={{ color: "#a78bfa", flexShrink: 0 }} />
-                    <span style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", fontWeight: 500 }}>{t}</span>
+                    <CheckCircle size={15} style={{ color: "#6366f1", flexShrink: 0 }} />
+                    <span style={{ fontSize: 13, color: "#64748b", fontWeight: 500 }}>{t}</span>
                   </div>
                 ))}
               </div>
@@ -418,22 +429,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ──────────────────────────────────────────────── */}
+      {/* ── CASE STUDIES ──────────────────────────────────────────────── */}
       <section style={{ background: "#fff", padding: "96px 24px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 52 }}>
-            <SectionLabel>Client Results</SectionLabel>
+            <SectionLabel>Success Stories</SectionLabel>
             <h2 style={{
               fontFamily: "var(--font-ibm-plex-serif)",
               fontSize: "clamp(1.8rem,3vw,2.5rem)",
               fontWeight: 600, color: "#101828",
               letterSpacing: "-0.02em",
             }}>
-              Trusted by leaders who mean business
+              Built for businesses ready to scale
             </h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 24 }}>
-            {testimonials.map((t) => (
+            {caseStudies.map((t) => (
               <div key={t.name} style={{
                 background: "#fff", borderRadius: 20,
                 border: "1px solid #EAECF0", padding: "36px 32px",
@@ -470,10 +481,10 @@ export default function HomePage() {
               fontWeight: 600, color: "#fff",
               letterSpacing: "-0.01em", lineHeight: 1.3, marginBottom: 12,
             }}>
-              Meet <em>EdifySuite</em> — the platform built for this
+              Meet <em>EdifySuite</em> — your operational command center
             </h2>
             <p style={{ fontSize: 15, color: "rgba(255,255,255,0.82)", lineHeight: 1.75 }}>
-              EdifySuite is the operational platform built to extend the work we do together — bringing your AI integrations, workflows, and performance data into one unified environment your team will actually use.
+              Project management software built for modern businesses. Track sales pipelines with an integrated CRM, sync seamlessly with Square for real-time transaction data, and connect your Google Calendar to never miss a beat. EdifySuite brings your entire operation into one unified platform.
             </p>
           </div>
           <a href="https://edifysuite.com" target="_blank" rel="noopener noreferrer"
@@ -512,20 +523,22 @@ export default function HomePage() {
           <p style={{ fontSize: 17, color: "#667085", lineHeight: 1.75, marginBottom: 36 }}>
             Whether you&apos;re exploring AI for the first time or rebuilding systems from the ground up — it starts with a conversation.
           </p>
-          <a href="mailto:info@edifyvision.com" style={{
+          <button onClick={() => setIsModalOpen(true)} style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             background: "#1570EF", color: "#fff",
             padding: "16px 36px", borderRadius: 14,
             fontWeight: 700, fontSize: 16, textDecoration: "none",
             boxShadow: "0 4px 12px rgba(21,112,239,0.3)",
             transition: "background 0.3s, box-shadow 0.3s",
+            border: "none",
+            cursor: "pointer",
           }}
             onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#175CD3"; el.style.boxShadow = "0 8px 24px rgba(21,112,239,0.4)"; }}
             onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#1570EF"; el.style.boxShadow = "0 4px 12px rgba(21,112,239,0.3)"; }}
           >
             Book a Free Consultation
             <ArrowRight size={16} />
-          </a>
+          </button>
           <p style={{ fontSize: 13, color: "#98A2B3", marginTop: 16 }}>
             No commitment. No hard sell. Just a conversation.
           </p>
@@ -533,6 +546,9 @@ export default function HomePage() {
       </section>
 
       <Footer />
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       {/* responsive grid breakpoints */}
       <style>{`
