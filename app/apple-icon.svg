@@ -1,0 +1,26 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="40" fill="#EFF8FF"/>
+  <defs>
+    <linearGradient id="atop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4893FF"/>
+      <stop offset="100%" stop-color="#0179FE"/>
+    </linearGradient>
+    <linearGradient id="aleft" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#175CD3"/>
+      <stop offset="100%" stop-color="#0F3F99"/>
+    </linearGradient>
+    <linearGradient id="aright" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E90FA"/>
+      <stop offset="100%" stop-color="#1570EF"/>
+    </linearGradient>
+  </defs>
+  <!-- Top face -->
+  <polygon points="90,28 152,62 90,96 28,62" fill="url(#atop)"/>
+  <!-- Left face -->
+  <polygon points="28,62 90,96 90,152 28,118" fill="url(#aleft)"/>
+  <!-- Right face -->
+  <polygon points="90,96 152,62 152,118 90,152" fill="url(#aright)"/>
+  <!-- Edge highlights -->
+  <polyline points="28,62 90,28 152,62 90,96 28,62" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2" stroke-linejoin="round"/>
+  <line x1="90" y1="96" x2="90" y2="152" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+</svg>
