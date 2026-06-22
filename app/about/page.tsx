@@ -25,7 +25,7 @@ export default function AboutPage() {
 
   return (
     <div style={{ background: "#f8fafc", minHeight: "100vh" }}>
-      <Navbar />
+      <Navbar onOpenContactModal={() => setIsModalOpen(true)} />
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
       <section style={{

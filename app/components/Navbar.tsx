@@ -11,7 +11,11 @@ const links = [
   { label: "EdifySuite", href: "https://edifysuite.com", external: true },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenContactModal?: () => void;
+}
+
+export default function Navbar({ onOpenContactModal }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -67,7 +71,8 @@ export default function Navbar() {
         </ul>
 
         {/* CTA */}
-        <a href="mailto:info@edifyvision.com"
+        <button
+          onClick={onOpenContactModal}
           className="hidden md:flex"
           style={{
             background: "#1570EF", color: "#fff",
@@ -75,12 +80,14 @@ export default function Navbar() {
             fontFamily: "var(--font-inter)", fontWeight: 600, fontSize: 14,
             textDecoration: "none", transition: "background 0.3s, box-shadow 0.3s",
             boxShadow: "0px 1px 2px rgba(16,24,40,0.05)",
+            border: "none",
+            cursor: "pointer",
           }}
           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#175CD3"; }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#1570EF"; }}
         >
           Book a Consultation
-        </a>
+        </button>
 
         {/* Mobile toggle */}
         <button onClick={() => setOpen(!open)}
@@ -106,15 +113,22 @@ export default function Navbar() {
               </li>
             ))}
             <li>
-              <a href="mailto:info@edifyvision.com"
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  onOpenContactModal?.();
+                }}
                 style={{
                   display: "inline-block", background: "#1570EF", color: "#fff",
                   padding: "10px 20px", borderRadius: 12,
                   fontWeight: 600, fontSize: 14, textDecoration: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  width: "100%",
                 }}
               >
                 Book a Consultation
-              </a>
+              </button>
             </li>
           </ul>
         </div>

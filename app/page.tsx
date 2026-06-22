@@ -58,14 +58,26 @@ const whyEdify = [
   "Measurable outcomes tied to real business metrics",
 ];
 
-const caseStudies = [
+const buildingBlocks = [
   {
-    quote: "Working with Edify transformed how we think about automation. The AI solutions they built are now core to our competitive advantage.",
-    name: "Tech Startup Founder", role: "SaaS Platform",
+    icon: "🎯",
+    title: "Strategic AI Integration",
+    desc: "We don't just implement tools — we architect intelligent systems that align with your business goals and scale as you grow.",
   },
   {
-    quote: "The systems integration work eliminated weeks of manual processing. We're operating at twice the speed with half the operational overhead.",
-    name: "Operations Director", role: "Professional Services",
+    icon: "⚡",
+    title: "Operational Excellence",
+    desc: "From workflow automation to data optimization, we eliminate friction and build systems that make your team more effective.",
+  },
+  {
+    icon: "🔄",
+    title: "Continuous Improvement",
+    desc: "Technology evolves fast. We build adaptable systems and stay embedded to ensure you're always operating at the cutting edge.",
+  },
+  {
+    icon: "🤝",
+    title: "Partnership Approach",
+    desc: "Your success is our success. We work alongside your team, not above them, transferring knowledge and building capability.",
   },
 ];
 
@@ -75,7 +87,7 @@ export default function HomePage() {
 
   return (
     <div style={{ background: "#f8fafc", minHeight: "100vh" }}>
-      <Navbar />
+      <Navbar onOpenContactModal={() => setIsModalOpen(true)} />
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
       <section style={{
@@ -429,39 +441,34 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CASE STUDIES ──────────────────────────────────────────────── */}
+      {/* ── OUR APPROACH ──────────────────────────────────────────────── */}
       <section style={{ background: "#fff", padding: "96px 24px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 52 }}>
-            <SectionLabel>Success Stories</SectionLabel>
+            <SectionLabel>Our Approach</SectionLabel>
             <h2 style={{
               fontFamily: "var(--font-ibm-plex-serif)",
               fontSize: "clamp(1.8rem,3vw,2.5rem)",
               fontWeight: 600, color: "#101828",
               letterSpacing: "-0.02em",
             }}>
-              Built for businesses ready to scale
+              How we build systems that actually work
             </h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 24 }}>
-            {caseStudies.map((t) => (
-              <div key={t.name} style={{
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 24 }}>
+            {buildingBlocks.map((block) => (
+              <div key={block.title} style={{
                 background: "#fff", borderRadius: 20,
                 border: "1px solid #EAECF0", padding: "36px 32px",
                 boxShadow: "0px 1px 3px rgba(16,24,40,0.10), 0px 1px 2px rgba(16,24,40,0.06)",
-              }}>
-                <div style={{ display: "flex", gap: 3, marginBottom: 20 }}>
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={15} fill="#F79009" color="#F79009" />
-                  ))}
-                </div>
-                <p style={{ fontSize: 16, color: "#344054", lineHeight: 1.8, fontStyle: "italic", marginBottom: 24, fontFamily: "var(--font-ibm-plex-serif)", fontWeight: 400 }}>
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div>
-                  <p style={{ fontWeight: 600, fontSize: 14, color: "#101828" }}>{t.name}</p>
-                  <p style={{ fontSize: 13, color: "#667085" }}>{t.role}</p>
-                </div>
+                transition: "transform 0.3s, box-shadow 0.3s",
+              }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.transform = "translateY(-4px)"; el.style.boxShadow = "0 12px 32px rgba(21,112,239,0.12)"; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.transform = "none"; el.style.boxShadow = "0px 1px 3px rgba(16,24,40,0.10)"; }}
+              >
+                <div style={{ fontSize: 42, marginBottom: 16 }}>{block.icon}</div>
+                <h3 style={{ fontFamily: "var(--font-ibm-plex-serif)", fontSize: 19, fontWeight: 600, color: "#101828", marginBottom: 12 }}>{block.title}</h3>
+                <p style={{ fontSize: 15, color: "#667085", lineHeight: 1.75 }}>{block.desc}</p>
               </div>
             ))}
           </div>

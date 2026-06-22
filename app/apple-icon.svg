@@ -1,31 +1,25 @@
-<svg width="180" height="180" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <clipPath id="c-apple">
-      <circle cx="18" cy="18" r="17.6"/>
-    </clipPath>
-    <radialGradient id="bg-apple" cx="13" cy="11" r="22" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1045b0"/>
-      <stop offset="55%" stop-color="#0a2880"/>
-      <stop offset="100%" stop-color="#020e52"/>
-    </radialGradient>
-    <linearGradient id="w1-apple" x1="0" y1="36" x2="36" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1045b0"/>
-      <stop offset="100%" stop-color="#1558c4"/>
+    <linearGradient id="top-apple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4893FF"/>
+      <stop offset="100%" stop-color="#0179FE"/>
     </linearGradient>
-    <linearGradient id="w2-apple" x1="0" y1="36" x2="36" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1660cc"/>
-      <stop offset="100%" stop-color="#1f78de"/>
+    <linearGradient id="left-apple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#175CD3"/>
+      <stop offset="100%" stop-color="#0F3F99"/>
     </linearGradient>
-    <filter id="sh-apple" x="-8%" y="-8%" width="116%" height="116%">
-      <feDropShadow dx="0" dy="1.5" stdDeviation="1.8" flood-color="#000830" flood-opacity="0.45"/>
-    </filter>
+    <linearGradient id="right-apple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E90FA"/>
+      <stop offset="100%" stop-color="#1570EF"/>
+    </linearGradient>
   </defs>
-  <circle cx="18" cy="18" r="17.6" fill="url(#bg-apple)" filter="url(#sh-apple)"/>
-  <g clip-path="url(#c-apple)">
-    <path d="M -2,22 C 6,14 13,26 20,18 C 27,11 32,20 38,13 L 38,38 L -2,38 Z" fill="url(#w1-apple)"/>
-    <path d="M -2,12 C 6,4 13,16 20,8 C 27,0 32,9 38,4 L 38,13 C 32,20 27,11 20,18 C 13,26 6,14 -2,22 Z" fill="url(#w2-apple)"/>
-    <ellipse cx="11.5" cy="9" rx="7.5" ry="3.2" fill="rgba(255,255,255,0.13)" transform="rotate(-28 11.5 9)"/>
-  </g>
-  <circle cx="18" cy="18" r="17.3" fill="none" stroke="rgba(0,8,50,0.4)" stroke-width="0.9"/>
-  <circle cx="18" cy="18" r="16.7" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.45"/>
+  <!-- Top face -->
+  <polygon points="90,17 163,56 90,95 17,56" fill="url(#top-apple)"/>
+  <!-- Left face -->
+  <polygon points="17,56 90,95 90,163 17,124" fill="url(#left-apple)"/>
+  <!-- Right face -->
+  <polygon points="90,95 163,56 163,124 90,163" fill="url(#right-apple)"/>
+  <!-- Edge highlights -->
+  <polyline points="17,56 90,17 163,56 90,95 17,56" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="3" stroke-linejoin="round"/>
+  <line x1="90" y1="95" x2="90" y2="163" stroke="rgba(255,255,255,0.2)" stroke-width="3"/>
 </svg>
