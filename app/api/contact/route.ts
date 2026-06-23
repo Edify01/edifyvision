@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
@@ -13,42 +16,32 @@ export async function POST(request: Request) {
       );
     }
 
-    // In production, you would send an actual email here using a service like:
-    // - SendGrid
-    // - Resend
-    // - AWS SES
-    // - Nodemailer
-    
-    // For now, we'll just log the data and return success
-    console.log("Contact form submission:", {
-      name,
-      email,
-      phone,
-      businessName,
-      description,
-      timestamp: new Date().toISOString(),
-    });
-
-    // Simulate email sending
-    // TODO: Replace with actual email service integration
-    /*
-    Example with Resend:
-    
+    // Send email via Resend
     await resend.emails.send({
-      from: 'website@edifyvision.com',
-      to: 'info@edifyvision.com',
+      from: 'onboarding@resend.dev',
+      to: 'edifymediaservices@gmail.com',
       subject: `New Consultation Request from ${name}`,
       html: `
-        <h2>New Consultation Request</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Business:</strong> ${businessName}</p>
-        <p><strong>Description:</strong></p>
-        <p>${description}</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #1570EF; border-bottom: 2px solid #1570EF; padding-bottom: 10px;">
+            New Consultation Request
+          </h2>
+          <div style="margin: 20px 0;">
+            <p style="margin: 10px 0;"><strong>Name:</strong> ${name}</p>
+            <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            <p style="margin: 10px 0;"><strong>Phone:</strong> <a href="tel:${phone}">${phone}</a></p>
+            <p style="margin: 10px 0;"><strong>Business:</strong> ${businessName}</p>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <p style="margin: 0 0 10px 0;"><strong>Description:</strong></p>
+            <p style="margin: 0; white-space: pre-wrap;">${description}</p>
+          </div>
+          <p style="color: #667085; font-size: 12px; margin-top: 30px;">
+            Submitted via edifyvision.com contact form
+          </p>
+        </div>
       `,
     });
-    */
 
     return NextResponse.json(
       { success: true, message: "Form submitted successfully" },

@@ -114,110 +114,9 @@ export default function HomePage() {
           background: "radial-gradient(ellipse 50% 45% at 20% 70%, rgba(167,139,250,0.25) 0%, transparent 60%)",
         }} />
 
-        {/* ── Topographic SVG — static, dense, full-canvas ── */}
-        {/* TO REPLACE: Upload your own topographic SVG file to /public/topographic-bg.svg
-            Then replace this entire <div> with: 
-            <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
-              <Image src="/topographic-bg.svg" alt="" fill style={{ objectFit: "cover", opacity: 0.3 }} />
-            </div>
-        */}
+        {/* ── Custom Topographic Background ── */}
         <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
-          <svg width="100%" height="100%" viewBox="0 0 1440 640" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" stroke="rgba(99,102,241,0.18)" strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round">
-
-              {/* ═══ MAIN CENTER-RIGHT CLUSTER (cx≈920, cy≈315) — 7 rings ═══ */}
-              <path d="M920,285 Q948,280 954,308 Q960,338 936,348 Q910,357 896,334 Q883,311 897,290 Q906,277 920,285Z"/>
-              <path d="M918,252 Q964,244 978,286 Q992,330 966,364 Q938,398 898,393 Q856,387 844,352 Q832,315 852,275 Q870,240 918,252Z"/>
-              <path d="M916,218 Q982,206 1004,258 Q1028,314 1000,368 Q970,424 916,430 Q856,435 826,394 Q796,350 814,284 Q830,220 916,218Z"/>
-              <path d="M914,183 Q1000,167 1030,226 Q1064,292 1032,366 Q998,442 930,458 Q856,472 814,426 Q772,376 786,300 Q800,224 914,183Z"/>
-              <path d="M912,147 Q1018,127 1056,200 Q1098,280 1062,372 Q1024,466 946,486 Q858,506 806,454 Q752,398 766,308 Q780,212 912,147Z"/>
-              <path d="M910,110 Q1036,86 1082,172 Q1132,266 1090,374 Q1046,484 962,508 Q864,532 800,474 Q734,412 750,308 Q764,198 910,110Z"/>
-              <path d="M908,74 Q1054,46 1108,146 Q1168,254 1118,378 Q1066,506 978,534 Q876,562 800,496 Q722,428 738,312 Q752,186 908,74Z"/>
-
-              {/* ═══ LEFT CLUSTER (cx≈242, cy≈358) — 5 rings ═══ */}
-              <path d="M242,326 Q270,319 276,346 Q282,374 258,384 Q232,392 220,368 Q210,344 226,326 Q234,315 242,326Z"/>
-              <path d="M240,290 Q287,279 300,322 Q314,367 286,398 Q256,428 216,418 Q175,406 169,369 Q163,331 190,299 Q212,272 240,290Z"/>
-              <path d="M238,253 Q304,237 324,294 Q346,355 314,406 Q280,458 230,450 Q174,442 154,399 Q134,353 161,293 Q185,237 238,253Z"/>
-              <path d="M236,215 Q322,195 350,264 Q380,340 344,410 Q304,484 242,480 Q170,476 140,425 Q110,370 138,288 Q163,206 236,215Z"/>
-              <path d="M234,178 Q340,153 376,236 Q416,328 374,420 Q328,514 250,512 Q164,510 122,450 Q82,386 112,280 Q140,176 234,178Z"/>
-
-              {/* ═══ UPPER-RIGHT CLUSTER (cx≈1162, cy≈158) — 4 rings ═══ */}
-              <path d="M1162,130 Q1188,125 1194,150 Q1200,177 1176,186 Q1151,193 1140,170 Q1130,148 1162,130Z"/>
-              <path d="M1160,100 Q1204,91 1217,133 Q1230,177 1202,205 Q1172,233 1132,222 Q1092,211 1086,172 Q1080,132 1107,106 Q1128,84 1160,100Z"/>
-              <path d="M1158,68 Q1220,55 1238,112 Q1258,174 1222,216 Q1184,260 1132,249 Q1078,238 1068,192 Q1058,143 1088,98 Q1112,60 1158,68Z"/>
-              <path d="M1156,36 Q1236,19 1260,90 Q1286,168 1242,222 Q1196,278 1130,266 Q1062,254 1048,200 Q1034,144 1066,92 Q1095,44 1156,36Z"/>
-
-              {/* ═══ TOP-LEFT CLUSTER (cx≈158, cy≈158) — 4 rings ═══ */}
-              <path d="M158,129 Q183,122 188,147 Q193,173 170,181 Q147,188 136,164 Q126,142 158,129Z"/>
-              <path d="M156,97 Q198,86 210,124 Q222,165 195,193 Q166,222 130,211 Q93,200 88,163 Q83,124 108,99 Q128,78 156,97Z"/>
-              <path d="M154,64 Q213,49 230,101 Q249,157 216,198 Q182,240 136,228 Q88,216 77,168 Q67,118 96,74 Q118,38 154,64Z"/>
-              <path d="M152,30 Q228,12 252,78 Q278,150 237,203 Q195,258 138,244 Q79,230 62,172 Q46,110 78,56 Q102,14 152,30Z"/>
-
-              {/* ═══ TOP-CENTER CLUSTER (cx≈682, cy≈118) — 3 rings ═══ */}
-              <path d="M682,90 Q707,83 713,108 Q719,135 694,143 Q668,150 658,126 Q648,104 682,90Z"/>
-              <path d="M680,58 Q722,47 733,87 Q744,129 716,156 Q687,183 652,170 Q617,157 614,122 Q611,85 638,62 Q657,43 680,58Z"/>
-              <path d="M678,25 Q738,10 752,64 Q768,122 733,162 Q697,203 650,188 Q602,173 596,128 Q590,80 622,44 Q648,14 678,25Z"/>
-
-              {/* ═══ BOTTOM-LEFT CLUSTER (cx≈112, cy≈528) — 3 rings ═══ */}
-              <path d="M112,500 Q138,493 143,518 Q148,545 124,553 Q99,560 89,536 Q80,512 112,500Z"/>
-              <path d="M110,468 Q153,457 161,495 Q170,535 141,561 Q111,587 77,571 Q42,554 40,517 Q38,479 66,456 Q86,439 110,468Z"/>
-              <path d="M108,434 Q167,420 179,472 Q193,527 157,561 Q119,597 74,578 Q29,559 25,512 Q21,463 53,428 Q77,400 108,434Z"/>
-
-              {/* ═══ BOTTOM-CENTER CLUSTER (cx≈702, cy≈558) — 3 rings ═══ */}
-              <path d="M702,530 Q727,524 731,549 Q735,574 711,582 Q685,588 675,565 Q666,542 702,530Z"/>
-              <path d="M700,498 Q741,487 750,524 Q759,563 730,586 Q700,609 667,594 Q634,578 632,546 Q630,512 657,490 Q677,474 700,498Z"/>
-              <path d="M698,464 Q755,449 767,499 Q781,554 745,585 Q708,617 664,600 Q618,582 614,543 Q610,502 641,469 Q665,442 698,464Z"/>
-
-              {/* ═══ BOTTOM-RIGHT CLUSTER (cx≈1312, cy≈492) — 4 rings ═══ */}
-              <path d="M1312,464 Q1339,457 1344,482 Q1349,508 1324,517 Q1298,524 1287,501 Q1277,478 1312,464Z"/>
-              <path d="M1310,432 Q1354,421 1363,461 Q1372,502 1343,526 Q1313,551 1279,535 Q1244,518 1242,481 Q1240,443 1268,420 Q1288,404 1310,432Z"/>
-              <path d="M1308,398 Q1370,383 1382,435 Q1396,492 1360,526 Q1322,561 1276,543 Q1229,524 1226,478 Q1222,430 1256,397 Q1281,372 1308,398Z"/>
-              <path d="M1306,362 Q1386,343 1402,409 Q1420,480 1378,526 Q1334,573 1275,553 Q1214,532 1208,476 Q1202,418 1244,374 Q1274,339 1306,362Z"/>
-
-              {/* ═══ RIGHT-EDGE PARTIAL CLUSTER (cx≈1420, cy≈315) ═══ */}
-              <path d="M1420,284 Q1440,278 1440,302 L1440,340 Q1425,354 1404,342 Q1382,328 1384,302 Q1386,276 1420,284Z"/>
-              <path d="M1418,250 Q1440,240 1440,272 L1440,360 Q1430,386 1400,372 Q1362,354 1360,312 Q1358,268 1390,248 Q1404,238 1418,250Z"/>
-
-              {/* ═══ MID-LEFT SMALL CLUSTER (cx≈410, cy≈490) ═══ */}
-              <path d="M410,464 Q433,458 437,480 Q441,504 418,511 Q395,517 386,495 Q378,474 410,464Z"/>
-              <path d="M408,436 Q444,426 451,460 Q458,496 432,518 Q404,540 374,526 Q344,512 342,482 Q340,452 366,432 Q386,416 408,436Z"/>
-
-              {/* ═══ WANDERING CONNECTING FLOWS ═══ */}
-              {/* Main cluster ↔ left cluster — upper lane */}
-              <path d="M804,258 Q710,242 590,256 Q500,268 408,286 Q380,292 350,298"/>
-              {/* Main cluster ↔ left cluster — lower lane */}
-              <path d="M802,368 Q706,382 580,396 Q486,406 394,402 Q368,400 348,394"/>
-              {/* Left cluster → bottom-left */}
-              <path d="M144,434 Q120,468 108,494"/>
-              {/* Top-left → top-center */}
-              <path d="M252,108 Q388,86 562,88 Q624,88 648,96"/>
-              {/* Top-center → upper-right cluster */}
-              <path d="M718,98 Q828,76 998,72 Q1074,70 1122,80"/>
-              {/* Main cluster → bottom-right */}
-              <path d="M994,524 Q1086,538 1186,530 Q1234,526 1276,512"/>
-              {/* Bottom-left → bottom-center */}
-              <path d="M180,516 Q322,514 486,530 Q576,540 634,545"/>
-              {/* Bottom-center → bottom-right */}
-              <path d="M768,548 Q896,550 1048,536 Q1128,528 1202,512"/>
-              {/* Upper-right → right-edge */}
-              <path d="M1254,194 Q1326,242 1366,272"/>
-              {/* Top-left → left cluster (left side) */}
-              <path d="M82,216 Q100,270 118,298"/>
-              {/* Mid-canvas upper cross-flow */}
-              <path d="M352,180 Q468,164 588,170 Q644,172 674,182"/>
-              {/* Mid-canvas lower cross-flow */}
-              <path d="M408,456 Q504,442 628,448 Q658,450 676,458"/>
-              {/* Main cluster top flow to upper-right */}
-              <path d="M928,112 Q1004,88 1096,78"/>
-              {/* Texture: flow through center gap */}
-              <path d="M524,316 Q572,302 634,306 Q688,310 742,302 Q786,296 804,286"/>
-              <path d="M522,338 Q570,328 634,334 Q690,340 744,334 Q788,328 806,318"/>
-              {/* Bottom arch connecting bottom clusters */}
-              <path d="M178,556 Q294,570 412,570 Q510,570 586,562 Q624,558 638,554"/>
-              {/* Right-side vertical flow */}
-              <path d="M1246,270 Q1308,290 1350,316 Q1380,336 1390,360 Q1400,386 1388,416"/>
-            </g>
-          </svg>
+          <Image src="/topographic-bg.svg" alt="" fill style={{ objectFit: "cover", opacity: 0.25 }} />
         </div>
 
         <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 10 }}>
@@ -298,19 +197,33 @@ export default function HomePage() {
                 {/* Gradient accent bar */}
                 <div style={{ height: 4, background: "linear-gradient(90deg,#a78bfa 0%,#6366f1 50%,#3b82f6 100%)" }} />
                 {/* Headshot */}
-                <div style={{ width: "100%", aspectRatio: "4/5", position: "relative", background: "linear-gradient(160deg,#1e1b4b 0%,#0f172a 100%)" }}>
+                <div style={{ 
+                  width: "100%", 
+                  aspectRatio: "1", 
+                  position: "relative", 
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "linear-gradient(160deg,#1e1b4b 0%,#0f172a 100%)",
+                  padding: "40px"
+                }}>
                   <Image
-                    src="/headshot-placeholder.svg"
+                    src="/headshot.png"
                     alt="Founder headshot"
-                    fill
-                    style={{ objectFit: "cover", objectPosition: "center top" }}
+                    width={320}
+                    height={320}
+                    style={{ 
+                      width: "100%",
+                      height: "auto",
+                      maxWidth: "100%"
+                    }}
                     priority
                   />
                 </div>
                 {/* Name strip */}
                 <div style={{ padding: "20px 24px 22px", background: "rgba(15,12,41,0.9)", backdropFilter: "blur(8px)" }}>
                   <p style={{ fontFamily: "var(--font-ibm-plex-serif)", fontSize: 18, fontWeight: 600, color: "#fff", marginBottom: 2 }}>
-                    Your Name
+                    Angel Velazquez
                   </p>
                   <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", fontWeight: 500 }}>Founder &amp; Principal Advisor</p>
                 </div>

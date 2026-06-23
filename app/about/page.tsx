@@ -77,19 +77,33 @@ export default function AboutPage() {
               {/* Gradient accent bar */}
               <div style={{ height: 4, background: "linear-gradient(90deg,#60a5fa 0%,#3b82f6 50%,#2563eb 100%)" }} />
               {/* Headshot */}
-              <div style={{ width: "100%", aspectRatio: "4/5", position: "relative", background: "linear-gradient(160deg,#1e1b4b 0%,#0f172a 100%)" }}>
+              <div style={{ 
+                width: "100%", 
+                aspectRatio: "1", 
+                position: "relative", 
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "linear-gradient(160deg,#1e1b4b 0%,#0f172a 100%)",
+                padding: "40px"
+              }}>
                 <Image
-                  src="/headshot-placeholder.svg"
+                  src="/headshot.png"
                   alt="Founder headshot"
-                  fill
-                  style={{ objectFit: "cover", objectPosition: "center top" }}
+                  width={320}
+                  height={320}
+                  style={{ 
+                    width: "100%",
+                    height: "auto",
+                    maxWidth: "100%"
+                  }}
                   priority
                 />
               </div>
               {/* Name strip */}
               <div style={{ padding: "20px 24px 22px", background: "rgba(15,12,41,0.9)", backdropFilter: "blur(8px)" }}>
                 <p style={{ fontFamily: "var(--font-ibm-plex-serif)", fontSize: 18, fontWeight: 600, color: "#fff", marginBottom: 2 }}>
-                  Your Name
+                  Angel Velazquez
                 </p>
                 <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", fontWeight: 500 }}>Founder &amp; Principal Advisor</p>
               </div>
