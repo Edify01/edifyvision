@@ -116,7 +116,7 @@ export default function HomePage() {
 
         {/* ── Custom Topographic Background ── */}
         <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
-          <Image src="/topographic-bg.svg" alt="" fill style={{ objectFit: "cover", opacity: 0.25 }} />
+          <Image src="/topographic-bg.svg" alt="" fill style={{ objectFit: "cover", opacity: 0.35 }} />
         </div>
 
         <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 10 }}>
