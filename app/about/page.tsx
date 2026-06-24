@@ -34,13 +34,21 @@ export default function AboutPage() {
         paddingLeft: 24, paddingRight: 24,
         position: "relative", overflow: "hidden",
       }}>
+        {/* Radial gradient accent */}
         <div style={{
           position: "absolute", top: -100, right: -100, width: 600, height: 600,
           borderRadius: "50%",
           background: "radial-gradient(circle,rgba(79,140,255,0.1) 0%,transparent 70%)",
           pointerEvents: "none",
         }} />
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}
+        
+        {/* Custom Topographic Background */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
+          <Image src="/topographic-bg.svg" alt="" fill style={{ objectFit: "cover", opacity: 0.35 }} />
+        </div>
+
+        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 10 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}
           className="hero-grid">
           <div>
             <SectionLabel>About Edify</SectionLabel>
@@ -109,6 +117,7 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </section>
 
